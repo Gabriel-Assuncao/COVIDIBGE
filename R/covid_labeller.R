@@ -2,7 +2,7 @@
 #' @description This function labels categorical variables from PNAD COVID19 microdata.
 #' @import survey readr dplyr magrittr RCurl utils timeDate readxl tibble
 #' @param data_covid A tibble of PNAD COVID19 microdata read with \code{read_covid} function.
-#' @param dictionary.file The dictionary file for selected survey available on official website: (select a dictionary xls file) - ftp://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/Documentacao/.
+#' @param dictionary.file The dictionary file for selected survey available on official website: (select a dictionary xls file) - \url{https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/Documentacao/}.
 #' @return A tibble with the data provided from PNAD COVID19 survey and its categorical variables as factors with related labels.
 #' @note For more information, visit the survey official website <\url{https://www.ibge.gov.br/estatisticas/investigacoes-experimentais/estatisticas-experimentais/27946-divulgacao-semanal-pnadcovid1?t=o-que-e}> and consult the other functions of this package, described below.
 #' @seealso \link[COVIDIBGE]{get_covid} for downloading, labelling, deflating and creating survey design object for PNAD COVID19 microdata.\cr \link[COVIDIBGE]{read_covid} for reading PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_deflator} for adding deflator variables to PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_design} for creating PNAD COVID19 survey design object.\cr \link[COVIDIBGE]{covid_example} for getting the path of the PNAD COVID19 example files.

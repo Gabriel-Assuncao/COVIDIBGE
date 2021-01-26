@@ -3,7 +3,7 @@
 #' @import survey readr dplyr magrittr RCurl utils timeDate readxl tibble
 #' @param year The year of the data to be downloaded. Must be a number between 2020 and current year. Vector not accepted.
 #' @param month The month of the year of the data to be downloaded. Must be number from 1 to 12. If the year is defined as 2020, must be a number from 5 to 12. Vector not accepted.
-#' @param vars Vector of variable names to be kept for analysys. Default is to keep all variables.
+#' @param vars Vector of variable names to be kept for analysis. Default is to keep all variables.
 #' @param labels Logical value. If \code{TRUE}, categorical variables will presented as factors with labels corresponding to the survey's dictionary.
 #' @param deflator Logical value. If \code{TRUE}, deflator variables will be available for use in the microdata.
 #' @param design Logical value. If \code{TRUE}, will return an object of class \code{survey.design}. It is strongly recommended to keep this parameter as \code{TRUE} for further analysis. If \code{FALSE}, only the microdata will be returned.

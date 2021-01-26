@@ -7,9 +7,9 @@
 read_covid(microdata, vars = NULL)
 }
 \arguments{
-\item{microdata}{A comma-separated values file containing microdata from PNAD COVID19 survey, available on official website: (select a microdata file) - ftp://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/Dados/.}
+\item{microdata}{A comma-separated values file containing microdata from PNAD COVID19 survey, available on official website: (select a microdata file) - \url{https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/Dados/}.}
 
-\item{vars}{Vector of variable names to be kept for analysys. Default is to keep all variables.}
+\item{vars}{Vector of variable names to be kept for analysis. Default is to keep all variables.}
 }
 \value{
 A tibble with selected variables of the microdata, including the necessary survey design ones.

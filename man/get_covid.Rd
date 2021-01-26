@@ -19,7 +19,7 @@ get_covid(
 
 \item{month}{The month of the year of the data to be downloaded. Must be number from 1 to 12. If the year is defined as 2020, must be a number from 5 to 12. Vector not accepted.}
 
-\item{vars}{Vector of variable names to be kept for analysys. Default is to keep all variables.}
+\item{vars}{Vector of variable names to be kept for analysis. Default is to keep all variables.}
 
 \item{labels}{Logical value. If \code{TRUE}, categorical variables will presented as factors with labels corresponding to the survey's dictionary.}
 

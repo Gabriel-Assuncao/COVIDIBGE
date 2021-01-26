@@ -9,13 +9,13 @@ covid_deflator(data_covid, deflator.file)
 \arguments{
 \item{data_covid}{A tibble of PNAD COVID19 microdata read with \code{read_covid} function.}
 
-\item{deflator.file}{The deflator file for selected survey available on official website: (select the deflator zip file) - ftp://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/Documentacao/.}
+\item{deflator.file}{The deflator file for selected survey available on official website: (select the deflator zip file) - \url{https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/Documentacao/}.}
 }
 \value{
 A tibble with the data provided from PNAD COVID19 survey and the deflator variables added for use.
 }
 \description{
-This function adds deflator variables to PNAD COVID19 microdata. For deflation of income variables, the documentation provided through the following address must be used: ftp://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/Documentacao/COVIDIBGE_Deflator.pdf.
+This function adds deflator variables to PNAD COVID19 microdata. For deflation of income variables, the documentation provided through the following address must be used: \url{https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/Documentacao/COVIDIBGE_Deflator.pdf}.
 }
 \note{
 For more information, visit the survey official website <\url{https://www.ibge.gov.br/estatisticas/investigacoes-experimentais/estatisticas-experimentais/27946-divulgacao-semanal-pnadcovid1?t=o-que-e}> and consult the other functions of this package, described below.

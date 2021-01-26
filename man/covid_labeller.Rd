@@ -9,7 +9,7 @@ covid_labeller(data_covid, dictionary.file)
 \arguments{
 \item{data_covid}{A tibble of PNAD COVID19 microdata read with \code{read_covid} function.}
 
-\item{dictionary.file}{The dictionary file for selected survey available on official website: (select a dictionary xls file) - ftp://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/Documentacao/.}
+\item{dictionary.file}{The dictionary file for selected survey available on official website: (select a dictionary xls file) - \url{https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/Documentacao/}.}
 }
 \value{
 A tibble with the data provided from PNAD COVID19 survey and its categorical variables as factors with related labels.
