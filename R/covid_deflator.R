@@ -25,15 +25,18 @@
 covid_deflator <- function(data_covid, deflator.file) {
   if (sum(class(data_covid) == "tbl_df") > 0) {
     if (!(FALSE %in% (c("Ano", "V1013", "UF") %in% names(data_covid)))) {
-      data_covid <- data_covid[, !names(data_covid) %in% c("Habitual", "Efetivo"), drop=FALSE]
+      data_covid <- data_covid[, !names(data_covid) %in% c("Habitual", "Efetivo", "CO3"), drop=FALSE]
       deflator <- suppressMessages(readxl::read_excel(deflator.file))
       colnames(deflator)[c(1:3)] <- c("Ano", "V1013", "UF")
-      deflator$V1013 <- ifelse(nchar(deflator$V1013) == 1,paste0("0",deflator$V1013),deflator$V1013)
-      deflator$V1013 <- ifelse(deflator$V1013 %in% c("01","02","03","04","05","06","07","08","09","10","11","12"),deflator$V1013,"")
-      deflator <- deflator[deflator$V1013 != "",]
-      deflator$UF <- as.factor(deflator$UF)
-      if (identical(intersect(levels(deflator$UF), levels(as.factor(data_covid$UF))), character(0)) & length(levels(deflator$UF)) == length(levels(as.factor(data_covid$UF)))) {
-        levels(deflator$UF) <- levels(as.factor(data_covid$UF))
+      deflator$V1013 <- as.integer(deflator$V1013)
+      if (class(data_covid$UF) == "integer") {
+        deflator$UF <- as.integer(deflator$UF)
+      }
+      else {
+        deflator$UF <- as.factor(deflator$UF)
+        if (identical(intersect(levels(deflator$UF), levels(as.factor(data_covid$UF))), character(0)) & length(levels(deflator$UF)) == length(levels(as.factor(data_covid$UF)))) {
+          levels(deflator$UF) <- levels(as.factor(data_covid$UF))
+        }
       }
       data_covid <- base::merge(x=data_covid, y=deflator, by.x=c("Ano", "V1013", "UF"), by.y=c("Ano", "V1013", "UF"), all.x=TRUE, all.y=FALSE)
       data_covid <- data_covid[order(data_covid$Estrato, data_covid$UPA, data_covid$V1008, data_covid$A001),]
