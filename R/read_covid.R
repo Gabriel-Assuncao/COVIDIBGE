@@ -1,6 +1,6 @@
 #' Read PNAD COVID19 microdata
 #' @description This function reads PNAD COVID19 microdata.
-#' @import survey readr dplyr magrittr RCurl utils timeDate readxl tibble
+#' @import survey readr dplyr magrittr projmgr httr RCurl utils timeDate readxl tibble
 #' @param microdata A comma-separated values file containing microdata from PNAD COVID19 survey, available on official website: (select a microdata file) - \url{https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/Dados/}.
 #' @param vars Vector of variable names to be kept for analysis. Default is to keep all variables.
 #' @return A tibble with selected variables of the microdata, including the necessary survey design ones.
@@ -16,7 +16,7 @@ read_covid <- function(microdata, vars = NULL) {
   if (!is.null(vars)) {
     if (any(!(vars %in% colnames(data_covid)))) {
       missvar <- vars[!(vars %in% colnames(data_covid))]
-      warning(paste("Variables", paste(missvar, collapse=", "), "not present in microdata.\n"))
+      message(paste("Variables", paste(missvar, collapse=", "), "not present in microdata.\n"))
     }
     keeps <- intersect(names(data_covid), c("Ano", "UF", "UPA", "Estrato", "V1008", "V1012", "V1013", "V1030", "V1031", "posest", "A001", vars))
     data_covid <- data_covid[,names(data_covid) %in% keeps]

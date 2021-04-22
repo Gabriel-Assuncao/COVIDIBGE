@@ -1,6 +1,6 @@
 #' Add deflator variables to PNAD COVID19 microdata
 #' @description This function adds deflator variables to PNAD COVID19 microdata. For deflation of income variables, the documentation provided through the following address must be used: \url{https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/Documentacao/COVIDIBGE_Deflator.pdf}.
-#' @import survey readr dplyr magrittr RCurl utils timeDate readxl tibble
+#' @import survey readr dplyr magrittr projmgr httr RCurl utils timeDate readxl tibble
 #' @param data_covid A tibble of PNAD COVID19 microdata read with \code{read_covid} function.
 #' @param deflator.file The deflator file for selected survey available on official website: (select the deflator zip file) - \url{https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/Documentacao/}.
 #' @return A tibble with the data provided from PNAD COVID19 survey and the deflator variables added for use.
@@ -43,11 +43,11 @@ covid_deflator <- function(data_covid, deflator.file) {
       data_covid <- tibble::as_tibble(data_covid)
     }
     else {
-      warning("Merge variables required for adding deflator variables are missing.")
+      message("Merge variables required for adding deflator variables are missing.")
     }
   }
   else {
-    warning("Sample design was already defined for microdata, so adding deflator variables is not possible.")
+    message("The microdata object is not of the tibble class or sample design was already defined for microdata, so adding deflator variables is not possible.")
   }
   return(data_covid)
 }

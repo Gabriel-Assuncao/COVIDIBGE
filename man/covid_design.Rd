@@ -29,14 +29,14 @@ covid.df <- covid_deflator(data_covid=covid.df, deflator.file=deflator.path)
 \donttest{
 covid.svy <- covid_design(data_covid=covid.df)
 # Calculating temporarily away from work rate
-survey::svymean(x=~C002, design=covid.svy, na.rm=TRUE)}
+if (!is.null(covid.svy)) survey::svymean(x=~C002, design=covid.svy, na.rm=TRUE)}
 \donttest{
 # Downloading data
 covid.df2 <- get_covid(year=2020, month=5, vars="C002",
                        labels=TRUE, deflator=TRUE, design=FALSE, savedir=tempdir())
 covid.svy2 <- covid_design(data_covid=covid.df2)
 # Calculating temporarily away from work rate
-survey::svymean(x=~C002, design=covid.svy2, na.rm=TRUE)}
+if (!is.null(covid.svy2)) survey::svymean(x=~C002, design=covid.svy2, na.rm=TRUE)}
 }
 \seealso{
 \link[COVIDIBGE]{get_covid} for downloading, labelling, deflating and creating survey design object for PNAD COVID19 microdata.\cr \link[COVIDIBGE]{read_covid} for reading PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_labeller} for labelling categorical variables from PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_deflator} for adding deflator variables to PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_example} for getting the path of the PNAD COVID19 example files.

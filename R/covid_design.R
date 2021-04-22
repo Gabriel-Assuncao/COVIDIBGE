@@ -1,6 +1,6 @@
 #' Create PNAD COVID19 survey object with its sample design
 #' @description This function creates PNAD COVID19 survey object with its sample design for analysis using \code{survey} package functions.
-#' @import survey readr dplyr magrittr RCurl utils timeDate readxl tibble
+#' @import survey readr dplyr magrittr projmgr httr RCurl utils timeDate readxl tibble
 #' @param data_covid A tibble of PNAD COVID19 microdata read with \code{read_covid} function.
 #' @return An object of class \code{survey.design} with the data from PNAD COVID19 and its sample design.
 #' @note For more information, visit the survey official website <\url{https://www.ibge.gov.br/estatisticas/investigacoes-experimentais/estatisticas-experimentais/27946-divulgacao-semanal-pnadcovid1?t=o-que-e}> and consult the other functions of this package, described below.
@@ -16,14 +16,14 @@
 #' \donttest{
 #' covid.svy <- covid_design(data_covid=covid.df)
 #' # Calculating temporarily away from work rate
-#' survey::svymean(x=~C002, design=covid.svy, na.rm=TRUE)}
+#' if (!is.null(covid.svy)) survey::svymean(x=~C002, design=covid.svy, na.rm=TRUE)}
 #' \donttest{
 #' # Downloading data
 #' covid.df2 <- get_covid(year=2020, month=5, vars="C002",
 #'                        labels=TRUE, deflator=TRUE, design=FALSE, savedir=tempdir())
 #' covid.svy2 <- covid_design(data_covid=covid.df2)
 #' # Calculating temporarily away from work rate
-#' survey::svymean(x=~C002, design=covid.svy2, na.rm=TRUE)}
+#' if (!is.null(covid.svy2)) survey::svymean(x=~C002, design=covid.svy2, na.rm=TRUE)}
 #' @export
 
 covid_design <- function(data_covid) {
@@ -36,12 +36,12 @@ covid_design <- function(data_covid) {
       data_posterior <- survey::postStratify(design=data_prior, strata=~posest, population=popc.types)
     }
     else {
-      warning("Weight variables required for sample design are missing.")
+      message("Weight variables required for sample design are missing.")
       data_posterior <- data_covid
     }
   }
   else {
-    warning("Sample design was already defined for microdata, so applying another design is not possible.")
+    message("The microdata object is not of the tibble class or sample design was already defined for microdata, so applying another design is not possible.")
     data_posterior <- data_covid
   }
   return(data_posterior)

@@ -1,6 +1,6 @@
 #' Get the path of the PNAD COVID19 example files
-#' @description This function provides the path of the PNAD COVID19 example files, loaded with this package.
-#' @import survey readr dplyr magrittr RCurl utils timeDate readxl tibble
+#' @description This function provides the path of the microdata from month 5 of year 2020 of the PNAD COVID19 example files, loaded with this package.
+#' @import survey readr dplyr magrittr projmgr httr RCurl utils timeDate readxl tibble
 #' @param path Name of file. If \code{NULL}, the PNAD COVID19 example files names will be listed.
 #' @return A vector with names of all the available PNAD COVID19 example files or the path for specific requested PNAD COVID19 example file.
 #' @note For more information, visit the survey official website <\url{https://www.ibge.gov.br/estatisticas/investigacoes-experimentais/estatisticas-experimentais/27946-divulgacao-semanal-pnadcovid1?t=o-que-e}> and consult the other functions of this package, described below.

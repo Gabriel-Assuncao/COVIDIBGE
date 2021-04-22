@@ -15,9 +15,9 @@ get_covid(
 )
 }
 \arguments{
-\item{year}{The year of the data to be downloaded. Must be a number between 2020 and current year. Vector not accepted.}
+\item{year}{The year of the data to be downloaded. Must be a number equal to 2020. Vector not accepted.}
 
-\item{month}{The month of the year of the data to be downloaded. Must be number from 1 to 12. If the year is defined as 2020, must be a number from 5 to 12. Vector not accepted.}
+\item{month}{The month of the year of the data to be downloaded. Must be number from 5 to 11. Vector not accepted.}
 
 \item{vars}{Vector of variable names to be kept for analysis. Default is to keep all variables.}
 
@@ -42,7 +42,7 @@ For more information, visit the survey official website <\url{https://www.ibge.g
 \donttest{
 covid.svy <- get_covid(year=2020, month=5, vars=c("C001","C002","C003"),
                        labels=TRUE, deflator=TRUE, design=TRUE, savedir=tempdir())
-survey::svymean(x=~C002, design=covid.svy, na.rm=TRUE)}
+if (!is.null(covid.svy)) survey::svymean(x=~C002, design=covid.svy, na.rm=TRUE)}
 }
 \seealso{
 \link[COVIDIBGE]{read_covid} for reading PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_labeller} for labelling categorical variables from PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_deflator} for adding deflator variables to PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_design} for creating PNAD COVID19 survey design object.\cr \link[COVIDIBGE]{covid_example} for getting the path of the PNAD COVID19 example files.
