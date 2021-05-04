@@ -40,8 +40,9 @@ For more information, visit the survey official website <\url{https://www.ibge.g
 }
 \examples{
 \donttest{
-covid.svy <- get_covid(year=2020, month=5, vars=c("C001","C002","C003"),
+covid.svy <- get_covid(year=2020, month=5, vars=c("C001","C002"),
                        labels=TRUE, deflator=TRUE, design=TRUE, savedir=tempdir())
+# Calculating proportion of people temporarily away from work
 if (!is.null(covid.svy)) survey::svymean(x=~C002, design=covid.svy, na.rm=TRUE)}
 }
 \seealso{

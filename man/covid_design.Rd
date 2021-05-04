@@ -23,19 +23,19 @@ For more information, visit the survey official website <\url{https://www.ibge.g
 data_path <- covid_example(path="exampledata.csv")
 dictionary.path <- covid_example(path="dictionaryexample.xls")
 deflator.path <- covid_example(path="deflatorexample.xls")
-covid.df <- read_covid(microdata=data_path, vars="C002")
+covid.df <- read_covid(microdata=data_path, vars=c("C001","C002"))
 covid.df <- covid_labeller(data_covid=covid.df, dictionary.file=dictionary.path)
 covid.df <- covid_deflator(data_covid=covid.df, deflator.file=deflator.path)
 \donttest{
 covid.svy <- covid_design(data_covid=covid.df)
-# Calculating temporarily away from work rate
+# Calculating proportion of people temporarily away from work
 if (!is.null(covid.svy)) survey::svymean(x=~C002, design=covid.svy, na.rm=TRUE)}
 \donttest{
 # Downloading data
-covid.df2 <- get_covid(year=2020, month=5, vars="C002",
+covid.df2 <- get_covid(year=2020, month=5, vars=c("C001","C002"),
                        labels=TRUE, deflator=TRUE, design=FALSE, savedir=tempdir())
 covid.svy2 <- covid_design(data_covid=covid.df2)
-# Calculating temporarily away from work rate
+# Calculating proportion of people temporarily away from work
 if (!is.null(covid.svy2)) survey::svymean(x=~C002, design=covid.svy2, na.rm=TRUE)}
 }
 \seealso{

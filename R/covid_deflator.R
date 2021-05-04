@@ -11,12 +11,12 @@
 #' data_path <- covid_example(path="exampledata.csv")
 #' dictionary.path <- covid_example(path="dictionaryexample.xls")
 #' deflator.path <- covid_example(path="deflatorexample.xls")
-#' covid.df <- read_covid(microdata=data_path, vars="C002")
+#' covid.df <- read_covid(microdata=data_path, vars=c("C001","C002"))
 #' covid.df <- covid_labeller(data_covid=covid.df, dictionary.file=dictionary.path)
 #' covid.df <- covid_deflator(data_covid=covid.df, deflator.file=deflator.path)
 #' \donttest{
 #' # Downloading data
-#' covid.df2 <- get_covid(year=2020, month=5, vars="C002",
+#' covid.df2 <- get_covid(year=2020, month=5, vars=c("C001","C002"),
 #'                        labels=TRUE, deflator=FALSE, design=FALSE, savedir=tempdir())
 #' deflator.path2 <- covid_example(path="deflatorexample.xls")
 #' covid.df2 <- covid_deflator(data_covid=covid.df2, deflator.file=deflator.path2)}

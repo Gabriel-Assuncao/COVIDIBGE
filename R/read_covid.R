@@ -8,7 +8,7 @@
 #' @seealso \link[COVIDIBGE]{get_covid} for downloading, labelling, deflating and creating survey design object for PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_labeller} for labelling categorical variables from PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_deflator} for adding deflator variables to PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_design} for creating PNAD COVID19 survey design object.\cr \link[COVIDIBGE]{covid_example} for getting the path of the PNAD COVID19 example files.
 #' @examples
 #' data_path <- covid_example(path="exampledata.csv")
-#' covid.df <- read_covid(microdata=data_path, vars="C002")
+#' covid.df <- read_covid(microdata=data_path, vars=c("C001","C002"))
 #' @export
 
 read_covid <- function(microdata, vars = NULL) {

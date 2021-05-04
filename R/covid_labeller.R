@@ -10,11 +10,11 @@
 #' # Using data read from disk
 #' data_path <- covid_example(path="exampledata.csv")
 #' dictionary.path <- covid_example(path="dictionaryexample.xls")
-#' covid.df <- read_covid(microdata=data_path, vars="C002")
+#' covid.df <- read_covid(microdata=data_path, vars=c("C001","C002"))
 #' covid.df <- covid_labeller(data_covid=covid.df, dictionary.file=dictionary.path)
 #' \donttest{
 #' # Downloading data
-#' covid.df2 <- get_covid(year=2020, month=5, vars="C002",
+#' covid.df2 <- get_covid(year=2020, month=5, vars=c("C001","C002"),
 #'                        labels=FALSE, deflator=FALSE, design=FALSE, savedir=tempdir())
 #' dictionary.path2 <- covid_example(path="dictionaryexample.xls")
 #' covid.df2 <- covid_labeller(data_covid=covid.df2, dictionary.file=dictionary.path2)}

@@ -13,8 +13,9 @@
 #' @seealso \link[COVIDIBGE]{read_covid} for reading PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_labeller} for labelling categorical variables from PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_deflator} for adding deflator variables to PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_design} for creating PNAD COVID19 survey design object.\cr \link[COVIDIBGE]{covid_example} for getting the path of the PNAD COVID19 example files.
 #' @examples
 #' \donttest{
-#' covid.svy <- get_covid(year=2020, month=5, vars=c("C001","C002","C003"),
+#' covid.svy <- get_covid(year=2020, month=5, vars=c("C001","C002"),
 #'                        labels=TRUE, deflator=TRUE, design=TRUE, savedir=tempdir())
+#' # Calculating proportion of people temporarily away from work
 #' if (!is.null(covid.svy)) survey::svymean(x=~C002, design=covid.svy, na.rm=TRUE)}
 #' @export
 
@@ -36,18 +37,18 @@ get_covid <- function(year, month, vars = NULL,
   if (substr(savedir, nchar(savedir), nchar(savedir)) == "/" | substr(savedir, nchar(savedir), nchar(savedir)) == "\\") {
     savedir <- substr(savedir, 1, nchar(savedir)-1)
   }
-  ftpdir <- ("ftp://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/")
+  ftpdir <- ("https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/")
   if (!projmgr::check_internet()) {
     message("The internet connection is unavailable.")
     return(NULL)
   }
-  if (httr::http_error(GET(ftpdir, timeout(60)))) {
+  if (httr::http_error(httr::GET(ftpdir, httr::timeout(60)))) {
     message("The microdata server is unavailable.")
     return(NULL)
   }
+  options(timeout=max(300, getOption("timeout")))
   ftpdata <- paste0(ftpdir, "Dados/")
-  ftpdoc <- paste0(ftpdir, "Documentacao/")
-  datayear <- unlist(strsplit(gsub("\r\n", "\n", RCurl::getURL(ftpdata, dirlistonly=TRUE)), "\n"))
+  datayear <- unlist(strsplit(unlist(strsplit(unlist(strsplit(gsub("\r\n", "\n", RCurl::getURL(ftpdata, dirlistonly=TRUE)), "\n")), "<a href=[[:punct:]]")), ".zip"))
   if (month < 10) {
     dataname <- datayear[which(startsWith(datayear, paste0("PNAD_COVID_0", month, year)))]
   }
@@ -57,6 +58,9 @@ get_covid <- function(year, month, vars = NULL,
   if (length(dataname) == 0) {
     message("Data unavailable for selected year.")
     return(NULL)
+  }
+  else {
+    dataname <- paste0(dataname, ".zip")
   }
   utils::download.file(url=paste0(ftpdata, dataname), destfile=paste0(savedir, "/", dataname), mode="wb")
   utils::unzip(zipfile=paste0(savedir, "/", dataname), exdir=savedir)
@@ -69,14 +73,15 @@ get_covid <- function(year, month, vars = NULL,
   microdatafile <- paste0(savedir, "/", microdataname)
   microdatafile <- rownames(file.info(microdatafile)[order(file.info(microdatafile)$ctime),])[length(microdatafile)]
   data_covid <- COVIDIBGE::read_covid(microdata=microdatafile, vars=vars)
-  docfiles <- unlist(strsplit(gsub("\r\n", "\n", RCurl::getURL(ftpdoc, dirlistonly=TRUE)), "\n"))
+  ftpdoc <- paste0(ftpdir, "Documentacao/")
   if (labels == TRUE) {
     if (exists("covid_labeller", where="package:COVIDIBGE", mode="function")) {
+      dicfiles <- unlist(strsplit(unlist(strsplit(unlist(strsplit(gsub("\r\n", "\n", RCurl::getURL(ftpdoc, dirlistonly=TRUE)), "\n")), "<a href=[[:punct:]]")), ".xls"))
       if (month < 10) {
-        dicname <- docfiles[which(startsWith(docfiles, paste0("Dicionario_PNAD_COVID_0", month, year)))]
+        dicname <- paste0(dicfiles[which(startsWith(dicfiles, paste0("Dicionario_PNAD_COVID_0", month, year)))], ".xls")
       }
       else {
-        dicname <- docfiles[which(startsWith(docfiles, paste0("Dicionario_PNAD_COVID_", month, year)))]
+        dicname <- paste0(dicfiles[which(startsWith(dicfiles, paste0("Dicionario_PNAD_COVID_", month, year)))], ".xls")
       }
       utils::download.file(url=paste0(ftpdoc, dicname), destfile=paste0(savedir, "/", dicname), mode="wb")
       dicfile <- paste0(savedir, "/", dicname)
@@ -89,7 +94,8 @@ get_covid <- function(year, month, vars = NULL,
   }
   if (deflator == TRUE) {
     if (exists("covid_deflator", where="package:COVIDIBGE", mode="function")) {
-      defzip <- docfiles[which(startsWith(docfiles, "Deflatores"))]
+      arcfiles <- unlist(strsplit(unlist(strsplit(unlist(strsplit(gsub("\r\n", "\n", RCurl::getURL(ftpdoc, dirlistonly=TRUE)), "\n")), "<a href=[[:punct:]]")), ".zip"))
+      defzip <- paste0(arcfiles[which(startsWith(arcfiles, "Deflatores"))], ".zip")
       utils::download.file(url=paste0(ftpdoc, defzip), destfile=paste0(savedir, "/Deflatores.zip"), mode="wb")
       utils::unzip(zipfile=paste0(savedir, "/Deflatores.zip"), exdir=savedir)
       defname <- dir(savedir, pattern=paste0("^Deflator_PNAD_COVID.*\\.xls$"), ignore.case=FALSE)
