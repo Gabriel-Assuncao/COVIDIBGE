@@ -1,12 +1,12 @@
-﻿# PNSIBGE
-## Downloading, Reading and Analysing PNS Microdata
+# COVIDIBGE
+## Downloading, Reading and Analysing PNAD COVID19 Microdata
 
-This R package provides tools for download, read, and analyse the PNS	household survey from Brazilian Institute of Geography and Statistics.
+This R package provides tools for download, read, and analyse the PNAD COVID19 household survey from Brazilian Institute of Geography and Statistics.
 
-## Baixe, Leia e Analise os Microdados da PNS
+## Baixe, Leia e Analise os Microdados da PNAD COVID19
 
-Pacote em R com ferramentas para download, leitura e análise da Pesquisa Nacional de Saúde (PNS) do Instituto Brasileiro de Geografia e Estatística (IBGE).
+Pacote em R com ferramentas para download, leitura e análise da Pesquisa Nacional por Amostra de Domicílios da COVID19 (PNAD COVID19) do Instituto Brasileiro de Geografia e Estatística (IBGE).
 
-[Manual em Português Disponível](https://rpubs.com/_/_)
+[Manual em Português Disponível](https://rpubs.com/gabriel-assuncao-ibge/covid)
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/PNSIBGE)](https://cran.r-project.org/package=PNSIBGE) [![CRAN monthly downloads](http://cranlogs.r-pkg.org/badges/PNSIBGE "CRAN monthly downloads")](https://cran.r-project.org/package=PNSIBGE)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/COVIDIBGE)](https://cran.r-project.org/package=COVIDIBGE) [![CRAN monthly downloads](http://cranlogs.r-pkg.org/badges/COVIDIBGE "CRAN monthly downloads")](https://cran.r-project.org/package=COVIDIBGE)
