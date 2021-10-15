@@ -39,7 +39,7 @@ covid_deflator <- function(data_covid, deflator.file) {
         }
       }
       data_covid <- base::merge(x=data_covid, y=deflator, by.x=c("Ano", "V1013", "UF"), by.y=c("Ano", "V1013", "UF"), all.x=TRUE, all.y=FALSE)
-      data_covid <- data_covid[order(data_covid$Estrato, data_covid$UPA, data_covid$V1008, data_covid$A001),]
+      data_covid <- data_covid[order(data_covid$Estrato, data_covid$ID_DOMICILIO, data_covid$A001),]
       data_covid <- tibble::as_tibble(data_covid)
     }
     else {

@@ -18,9 +18,10 @@ read_covid <- function(microdata, vars = NULL) {
       missvar <- vars[!(vars %in% colnames(data_covid))]
       message(paste("Variables", paste(missvar, collapse=", "), "not present in microdata.\n"))
     }
-    keeps <- intersect(names(data_covid), c("Ano", "UF", "UPA", "Estrato", "V1008", "V1012", "V1013", "V1030", "V1031", "posest", "A001", vars))
+    keeps <- intersect(names(data_covid), c("Ano", "UF", "UPA", "ID_DOMICILIO", "Estrato", "V1008", "V1012", "V1013", "V1030", "V1031", "V1032", "posest", "A001", vars))
     data_covid <- data_covid[,names(data_covid) %in% keeps]
   }
   data_covid <- as_tibble(data_covid)
+  data_covid <- dplyr::mutate(data_covid, ID_DOMICILIO=paste0(data_covid$UPA, data_covid$V1008))
   return(data_covid)
 }

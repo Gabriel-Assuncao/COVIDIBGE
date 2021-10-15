@@ -28,11 +28,12 @@
 
 covid_design <- function(data_covid) {
   if (sum(class(data_covid) == "tbl_df") > 0) {
-    if (!(FALSE %in% (c("UPA", "Estrato", "V1030", "V1031", "posest") %in% names(data_covid)))) {
+    if (!(FALSE %in% (c("UPA", "ID_DOMICILIO", "Estrato", "V1030", "V1031", "V1032", "posest") %in% names(data_covid)))) {
       options(survey.lonely.psu="adjust")
+      options(survey.adjust.domain.lonely=TRUE)
       data_prior <- survey::svydesign(ids=~UPA, strata=~Estrato, data=data_covid, weights=~V1031, nest=TRUE)
       popc.types <- data.frame(posest=as.character(unique(data_covid$posest)), Freq=as.numeric(unique(data_covid$V1030)))
-      popc.types <- (popc.types[order(popc.types$posest),])
+      popc.types <- popc.types[order(popc.types$posest),]
       data_posterior <- survey::postStratify(design=data_prior, strata=~posest, population=popc.types)
     }
     else {

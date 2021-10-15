@@ -51,7 +51,7 @@ covid_labeller <- function(data_covid, dictionary.file) {
                "F002A1", "F002A2", "F002A3", "F002A4", "F002A5", "F001", "F0061")
     label <- intersect(names(data_covid), label)
     data_covid[label] <- lapply(data_covid[label], as.character)
-    notlabel <- c("Ano", "UPA", "Estrato", "V1008", "V1012", "V1013", "V1016",
+    notlabel <- c("Ano", "UPA", "ID_DOMICILIO", "Estrato", "V1008", "V1012", "V1013", "V1016",
                   "V1030", "V1031", "V1032", "posest",
                   "A001", "A0011", "A001B1", "A001B2", "A001B3", "A002", "A006A1", "A006B1", "A006C1", "A007A1", "A007B1", "A007C1",
                   "B00371", "C0031", "C007C1", "C007D1", "C007E1", "C007E2", "C008", "C009", "C01011", "C01012", "C01021", "C01022",
