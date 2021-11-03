@@ -1,7 +1,7 @@
 Package: COVIDIBGE
 Type: Package
 Title: Downloading, Reading and Analysing PNAD COVID19 Microdata
-Version: 0.1.6
+Version: 0.1.7
 Authors@R: c(person("Gabriel", "Assuncao", email = "pacotesipd@ibge.gov.br",
                   role = c("aut", "cre")),
              person("Luna", "Hidalgo", email = "pacotesipd@ibge.gov.br",
@@ -24,6 +24,6 @@ Author: Gabriel Assuncao [aut, cre],
   Luna Hidalgo [aut],
   Douglas Braga [ctb]
 Maintainer: Gabriel Assuncao <pacotesipd@ibge.gov.br>
-Packaged: 2021-10-15 19:07:55 UTC; gabriel.assuncao
+Packaged: 2021-11-03 16:20:13 UTC; gabriel.assuncao
 Repository: CRAN
-Date/Publication: 2021-10-15 20:00:05 UTC
+Date/Publication: 2021-11-03 17:30:02 UTC

@@ -1,8 +1,8 @@
-c8ea4233c316909abfa27e7b3ec3ae04 *DESCRIPTION
+cf4646bc4da638925caf0daf47e5d359 *DESCRIPTION
 7c92392f62dd2b9a4bec4fbca415187a *NAMESPACE
 29ac6add8640e45e3ca833973cc8a54a *R/covid_deflator.R
 92cdb46d99fe1a6883845feb18c39102 *R/covid_design.R
-a15bd9ca82df5578dfecfa7597f3aff0 *R/covid_labeller.R
+aafdff88de76698a9bb9f0a88f742768 *R/covid_labeller.R
 82e38358873ef462e26a4e0df10bfcd9 *R/example.R
 50038179edb122e51bb0b476ad941801 *R/get_covid.R
 2a99a4a4ada29131090430c5e726266e *R/read_covid.R
