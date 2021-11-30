@@ -10,7 +10,7 @@ covid_design(data_covid)
 \item{data_covid}{A tibble of PNAD COVID19 microdata read with \code{read_covid} function.}
 }
 \value{
-An object of class \code{survey.design} with the data from PNAD COVID19 and its sample design.
+An object of class \code{survey.design} or \code{svyrep.design} with the data from PNAD COVID19 and its sample design.
 }
 \description{
 This function creates PNAD COVID19 survey object with its sample design for analysis using \code{survey} package functions.
@@ -39,5 +39,5 @@ covid.svy2 <- covid_design(data_covid=covid.df2)
 if (!is.null(covid.svy2)) survey::svymean(x=~C002, design=covid.svy2, na.rm=TRUE)}
 }
 \seealso{
-\link[COVIDIBGE]{get_covid} for downloading, labelling, deflating and creating survey design object for PNAD COVID19 microdata.\cr \link[COVIDIBGE]{read_covid} for reading PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_labeller} for labelling categorical variables from PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_deflator} for adding deflator variables to PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_example} for getting the path of the PNAD COVID19 example files.
+\link[COVIDIBGE]{get_covid} for downloading, labeling, deflating and creating survey design object for PNAD COVID19 microdata.\cr \link[COVIDIBGE]{read_covid} for reading PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_labeller} for labeling categorical variables from PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_deflator} for adding deflator variables to PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_example} for getting the path of the PNAD COVID19 toy example files.
 }

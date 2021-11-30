@@ -1,10 +1,10 @@
 #' Create PNAD COVID19 survey object with its sample design
 #' @description This function creates PNAD COVID19 survey object with its sample design for analysis using \code{survey} package functions.
-#' @import survey readr dplyr magrittr projmgr httr RCurl utils timeDate readxl tibble
+#' @import dplyr httr magrittr projmgr RCurl readr readxl survey tibble timeDate utils
 #' @param data_covid A tibble of PNAD COVID19 microdata read with \code{read_covid} function.
-#' @return An object of class \code{survey.design} with the data from PNAD COVID19 and its sample design.
+#' @return An object of class \code{survey.design} or \code{svyrep.design} with the data from PNAD COVID19 and its sample design.
 #' @note For more information, visit the survey official website <\url{https://www.ibge.gov.br/estatisticas/investigacoes-experimentais/estatisticas-experimentais/27946-divulgacao-semanal-pnadcovid1?t=o-que-e}> and consult the other functions of this package, described below.
-#' @seealso \link[COVIDIBGE]{get_covid} for downloading, labelling, deflating and creating survey design object for PNAD COVID19 microdata.\cr \link[COVIDIBGE]{read_covid} for reading PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_labeller} for labelling categorical variables from PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_deflator} for adding deflator variables to PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_example} for getting the path of the PNAD COVID19 example files.
+#' @seealso \link[COVIDIBGE]{get_covid} for downloading, labeling, deflating and creating survey design object for PNAD COVID19 microdata.\cr \link[COVIDIBGE]{read_covid} for reading PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_labeller} for labeling categorical variables from PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_deflator} for adding deflator variables to PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_example} for getting the path of the PNAD COVID19 toy example files.
 #' @examples
 #' # Using data read from disk
 #' data_path <- covid_example(path="exampledata.csv")

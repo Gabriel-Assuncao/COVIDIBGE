@@ -1,16 +1,16 @@
 #' Download, label, deflate and create survey design object for PNAD COVID19 microdata
 #' @description Core function of package. With this function only, the user can download a PNAD COVID19 microdata from a month and get a sample design object ready to use with \code{survey} package functions.
-#' @import survey readr dplyr magrittr projmgr httr RCurl utils timeDate readxl tibble
+#' @import dplyr httr magrittr projmgr RCurl readr readxl survey tibble timeDate utils
 #' @param year The year of the data to be downloaded. Must be a number equal to 2020. Vector not accepted.
 #' @param month The month of the year of the data to be downloaded. Must be number from 5 to 11. Vector not accepted.
 #' @param vars Vector of variable names to be kept for analysis. Default is to keep all variables.
 #' @param labels Logical value. If \code{TRUE}, categorical variables will presented as factors with labels corresponding to the survey's dictionary.
 #' @param deflator Logical value. If \code{TRUE}, deflator variables will be available for use in the microdata.
-#' @param design Logical value. If \code{TRUE}, will return an object of class \code{survey.design}. It is strongly recommended to keep this parameter as \code{TRUE} for further analysis. If \code{FALSE}, only the microdata will be returned.
+#' @param design Logical value. If \code{TRUE}, will return an object of class \code{survey.design} or \code{svyrep.design}. It is strongly recommended to keep this parameter as \code{TRUE} for further analysis. If \code{FALSE}, only the microdata will be returned.
 #' @param savedir Directory to save the downloaded data. Default is to use a temporary directory.
-#' @return An object of class \code{survey.design} with the data from PNAD COVID19 and its sample design, or a tibble with selected variables of the microdata, including the necessary survey design ones.
+#' @return An object of class \code{survey.design} or \code{svyrep.design} with the data from PNAD COVID19 and its sample design, or a tibble with selected variables of the microdata, including the necessary survey design ones.
 #' @note For more information, visit the survey official website <\url{https://www.ibge.gov.br/estatisticas/investigacoes-experimentais/estatisticas-experimentais/27946-divulgacao-semanal-pnadcovid1?t=o-que-e}> and consult the other functions of this package, described below.
-#' @seealso \link[COVIDIBGE]{read_covid} for reading PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_labeller} for labelling categorical variables from PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_deflator} for adding deflator variables to PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_design} for creating PNAD COVID19 survey design object.\cr \link[COVIDIBGE]{covid_example} for getting the path of the PNAD COVID19 example files.
+#' @seealso \link[COVIDIBGE]{read_covid} for reading PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_labeller} for labeling categorical variables from PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_deflator} for adding deflator variables to PNAD COVID19 microdata.\cr \link[COVIDIBGE]{covid_design} for creating PNAD COVID19 survey design object.\cr \link[COVIDIBGE]{covid_example} for getting the path of the PNAD COVID19 toy example files.
 #' @examples
 #' \donttest{
 #' covid.svy <- get_covid(year=2020, month=5, vars=c("C001","C002"),
