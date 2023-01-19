@@ -46,7 +46,7 @@ get_covid <- function(year, month, vars = NULL,
     message("The microdata server is unavailable.")
     return(NULL)
   }
-  options(timeout=max(300, getOption("timeout")))
+  options(timeout=max(600, getOption("timeout")))
   ftpdata <- paste0(ftpdir, "Dados/")
   datayear <- unlist(strsplit(unlist(strsplit(unlist(strsplit(gsub("\r\n", "\n", RCurl::getURL(ftpdata, dirlistonly=TRUE)), "\n")), "<a href=[[:punct:]]")), ".zip"))
   if (month < 10) {
@@ -79,7 +79,7 @@ get_covid <- function(year, month, vars = NULL,
     microdataname <- dir(savedir, pattern=paste0("^PNAD_COVID_", month, year, ".*\\.csv$"), ignore.case=FALSE)
   }
   microdatafile <- paste0(savedir, "/", microdataname)
-  microdatafile <- rownames(file.info(microdatafile)[order(file.info(microdatafile)$ctime),])[length(microdatafile)]
+  microdatafile <- rownames(file.info(microdatafile)[order(file.info(microdatafile)$mtime),])[length(microdatafile)]
   data_covid <- COVIDIBGE::read_covid(microdata=microdatafile, vars=vars)
   ftpdoc <- paste0(ftpdir, "Documentacao/")
   if (labels == TRUE) {
@@ -93,7 +93,7 @@ get_covid <- function(year, month, vars = NULL,
       }
       utils::download.file(url=paste0(ftpdoc, dicname), destfile=paste0(savedir, "/", dicname), mode="wb")
       dicfile <- paste0(savedir, "/", dicname)
-      dicfile <- rownames(file.info(dicfile)[order(file.info(dicfile)$ctime),])[length(dicfile)]
+      dicfile <- rownames(file.info(dicfile)[order(file.info(dicfile)$mtime),])[length(dicfile)]
       data_covid <- COVIDIBGE::covid_labeller(data_covid=data_covid, dictionary.file=dicfile)
     }
     else {
@@ -108,7 +108,7 @@ get_covid <- function(year, month, vars = NULL,
       utils::unzip(zipfile=paste0(savedir, "/Deflatores.zip"), exdir=savedir)
       defname <- dir(savedir, pattern=paste0("^Deflator_PNAD_COVID.*\\.xls$"), ignore.case=FALSE)
       deffile <- paste0(savedir, "/", defname)
-      deffile <- rownames(file.info(deffile)[order(file.info(deffile)$ctime),])[length(deffile)]
+      deffile <- rownames(file.info(deffile)[order(file.info(deffile)$mtime),])[length(deffile)]
       data_covid <- COVIDIBGE::covid_deflator(data_covid=data_covid, deflator.file=deffile)
     }
     else {

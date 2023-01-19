@@ -1,12 +1,12 @@
-4199bcd234b2d287faee1d098f5d8d86 *DESCRIPTION
+fa29147ea044046530d0556b7fb70214 *DESCRIPTION
 7c92392f62dd2b9a4bec4fbca415187a *NAMESPACE
-539a0e1d8ece197569483a081f87f9c8 *R/covid_deflator.R
+f0b534fa1ddd8abaca127866827085ca *R/covid_deflator.R
 02ad437d5bf8b46189529e87afdc40ce *R/covid_design.R
 1577a2a60a6fae728fd9a07e2e8830e9 *R/covid_labeller.R
 9de715cf1f7e90cb4d2c90b752642d44 *R/example.R
-ee4557e6f6a4f2de2b4351e755844e5c *R/get_covid.R
+baffad13ec67a99a02a676e8c431134f *R/get_covid.R
 06229cdcc32d7775010df15dd786ff0e *R/read_covid.R
-4d2596199171873589892b757ed2c0d4 *README.md
+84c0a5c47fce94120fd62fe1bef5ef91 *README.md
 0e9cc7457e60f647edaf38f413b13da6 *inst/extdata/deflatorexample.xls
 30eddc0ef80a1ea9642ccc5d7b902bb6 *inst/extdata/dictionaryexample.xls
 7f6574a3256e07dfc649de1fc04686cc *inst/extdata/exampledata.csv

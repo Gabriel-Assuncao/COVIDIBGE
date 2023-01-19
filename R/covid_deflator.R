@@ -28,19 +28,19 @@ covid_deflator <- function(data_covid, deflator.file) {
       data_covid <- data_covid[, !names(data_covid) %in% c("Habitual", "Efetivo", "CO3"), drop=FALSE]
       deflator <- suppressMessages(readxl::read_excel(deflator.file))
       colnames(deflator)[c(1:3)] <- c("Ano", "V1013", "UF")
-      if (class(data_covid$Ano) == "integer") {
+      if (is.integer(data_covid$Ano)) {
         deflator$Ano <- as.integer(deflator$Ano)
       }
       else {
         deflator$Ano <- as.character(as.integer(deflator$Ano))
       }
-      if (class(data_covid$V1013) == "integer") {
+      if (is.integer(data_covid$V1013)) {
         deflator$V1013 <- as.integer(deflator$V1013)
       }
       else {
         deflator$V1013 <- as.character(as.integer(deflator$V1013))
       }
-      if (class(data_covid$UF) == "integer") {
+      if (is.integer(data_covid$UF)) {
         deflator$UF <- as.integer(deflator$UF)
       }
       else {
