@@ -15,7 +15,7 @@
 #' \donttest{
 #' # Downloading data
 #' covid.df2 <- get_covid(year=2020, month=5, vars=c("C001","C002"),
-#'                        labels=FALSE, deflator=FALSE, design=FALSE, savedir=tempdir())
+#'                        labels=FALSE, deflator=FALSE, design=FALSE, reload=TRUE, savedir=tempdir())
 #' dictionary.path2 <- covid_example(path="dictionaryexample.xls")
 #' covid.df2 <- covid_labeller(data_covid=covid.df2, dictionary.file=dictionary.path2)}
 #' @export

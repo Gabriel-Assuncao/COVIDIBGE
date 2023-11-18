@@ -17,7 +17,7 @@
 #' \donttest{
 #' # Downloading data
 #' covid.df2 <- get_covid(year=2020, month=5, vars=c("C001","C002"),
-#'                        labels=TRUE, deflator=FALSE, design=FALSE, savedir=tempdir())
+#'                        labels=TRUE, deflator=FALSE, design=FALSE, reload=TRUE, savedir=tempdir())
 #' deflator.path2 <- covid_example(path="deflatorexample.xls")
 #' covid.df2 <- covid_deflator(data_covid=covid.df2, deflator.file=deflator.path2)}
 #' @export

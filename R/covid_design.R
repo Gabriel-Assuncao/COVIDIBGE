@@ -20,7 +20,7 @@
 #' \donttest{
 #' # Downloading data
 #' covid.df2 <- get_covid(year=2020, month=5, vars=c("C001","C002"),
-#'                        labels=TRUE, deflator=TRUE, design=FALSE, savedir=tempdir())
+#'                        labels=TRUE, deflator=TRUE, design=FALSE, reload=TRUE, savedir=tempdir())
 #' covid.svy2 <- covid_design(data_covid=covid.df2)
 #' # Calculating proportion of people temporarily away from work
 #' if (!is.null(covid.svy2)) survey::svymean(x=~C002, design=covid.svy2, na.rm=TRUE)}

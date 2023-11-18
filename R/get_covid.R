@@ -7,6 +7,7 @@
 #' @param labels Logical value. If \code{TRUE}, categorical variables will presented as factors with labels corresponding to the survey's dictionary.
 #' @param deflator Logical value. If \code{TRUE}, deflator variables will be available for use in the microdata.
 #' @param design Logical value. If \code{TRUE}, will return an object of class \code{survey.design} or \code{svyrep.design}. It is strongly recommended to keep this parameter as \code{TRUE} for further analysis. If \code{FALSE}, only the microdata will be returned.
+#' @param reload Logical value. If \code{TRUE}, will re-download the files even if they already exist in the save directory. If \code{FALSE}, will be checked if the files already exist in the save directory and the download will not be performed repeatedly.
 #' @param savedir Directory to save the downloaded data. Default is to use a temporary directory.
 #' @return An object of class \code{survey.design} or \code{svyrep.design} with the data from PNAD COVID19 and its sample design, or a tibble with selected variables of the microdata, including the necessary survey design ones.
 #' @note For more information, visit the survey official website <\url{https://www.ibge.gov.br/estatisticas/investigacoes-experimentais/estatisticas-experimentais/27946-divulgacao-semanal-pnadcovid1?t=o-que-e}> and consult the other functions of this package, described below.
@@ -14,13 +15,13 @@
 #' @examples
 #' \donttest{
 #' covid.svy <- get_covid(year=2020, month=5, vars=c("C001","C002"),
-#'                        labels=TRUE, deflator=TRUE, design=TRUE, savedir=tempdir())
+#'                        labels=TRUE, deflator=TRUE, design=TRUE, reload=TRUE, savedir=tempdir())
 #' # Calculating proportion of people temporarily away from work
 #' if (!is.null(covid.svy)) survey::svymean(x=~C002, design=covid.svy, na.rm=TRUE)}
 #' @export
 
 get_covid <- function(year, month, vars = NULL,
-                       labels = TRUE, deflator = TRUE, design = TRUE, savedir = tempdir())
+                       labels = TRUE, deflator = TRUE, design = TRUE, reload = TRUE, savedir = tempdir())
 {
   if (year != 2020) {
     message("Year must be equal to 2020.")
@@ -33,6 +34,12 @@ get_covid <- function(year, month, vars = NULL,
   if (!dir.exists(savedir)) {
     savedir <- tempdir()
     message(paste0("The directory provided does not exist, so the directory was set to '", savedir), "'.")
+  }
+  if (savedir != tempdir()) {
+    printpath <- TRUE
+  }
+  else {
+    printpath <- FALSE
   }
   if (substr(savedir, nchar(savedir), nchar(savedir)) == "/" | substr(savedir, nchar(savedir), nchar(savedir)) == "\\") {
     savedir <- substr(savedir, 1, nchar(savedir)-1)
@@ -66,12 +73,20 @@ get_covid <- function(year, month, vars = NULL,
   else {
     dataname <- paste0(dataname, ".zip")
   }
-  utils::download.file(url=paste0(ftpdata, dataname), destfile=paste0(savedir, "/", dataname), mode="wb")
-  if (suppressWarnings(class(try(utils::unzip(zipfile=paste0(savedir, "/", dataname), exdir=savedir), silent=TRUE)) == "try-error")) {
-    message("The directory defined to save the downloaded data is denied permission to overwrite the existing files, please clear or change this directory.")
-    return(NULL)
+  if (reload == FALSE & file.exists(paste0(savedir, "/", dataname))) {
+    message("The reload argument was defined as FALSE and the file of microdata was already downloaded, so the download process will not execute again.")
   }
-  utils::unzip(zipfile=paste0(savedir, "/", dataname), exdir=savedir)
+  else {
+    utils::download.file(url=paste0(ftpdata, dataname), destfile=paste0(savedir, "/", dataname), mode="wb")
+    if (suppressWarnings(class(try(utils::unzip(zipfile=paste0(savedir, "/", dataname), exdir=savedir), silent=TRUE)) == "try-error")) {
+      message("The directory defined to save the downloaded data is denied permission to overwrite the existing files, please clear or change this directory.")
+      return(NULL)
+    }
+    utils::unzip(zipfile=paste0(savedir, "/", dataname), exdir=savedir)
+    if (reload == FALSE) {
+      message("The definition of FALSE for the reload argument will be ignored, since the file of microdata was not downloaded yet.")
+    }
+  }
   if (month < 10) {
     microdataname <- dir(savedir, pattern=paste0("^PNAD_COVID_0", month, year, ".*\\.csv$"), ignore.case=FALSE)
   }
@@ -91,7 +106,15 @@ get_covid <- function(year, month, vars = NULL,
       else {
         dicname <- paste0(dicfiles[which(startsWith(dicfiles, paste0("Dicionario_PNAD_COVID_", month, year)))], ".xls")
       }
-      utils::download.file(url=paste0(ftpdoc, dicname), destfile=paste0(savedir, "/", dicname), mode="wb")
+      if (reload == FALSE & file.exists(paste0(savedir, "/", dicname))) {
+        message("The reload argument was defined as FALSE and the file of dictionary was already downloaded, so the download process will not execute again.")
+      }
+      else {
+        utils::download.file(url=paste0(ftpdoc, dicname), destfile=paste0(savedir, "/", dicname), mode="wb")
+        if (reload == FALSE) {
+          message("The definition of FALSE for the reload argument will be ignored, since the file of dictionary was not downloaded yet.")
+        }
+      }
       dicfile <- paste0(savedir, "/", dicname)
       dicfile <- rownames(file.info(dicfile)[order(file.info(dicfile)$mtime),])[length(dicfile)]
       data_covid <- COVIDIBGE::covid_labeller(data_covid=data_covid, dictionary.file=dicfile)
@@ -104,8 +127,16 @@ get_covid <- function(year, month, vars = NULL,
     if (exists("covid_deflator", where="package:COVIDIBGE", mode="function")) {
       arcfiles <- unlist(strsplit(unlist(strsplit(unlist(strsplit(gsub("\r\n", "\n", RCurl::getURL(ftpdoc, dirlistonly=TRUE)), "\n")), "<a href=[[:punct:]]")), ".zip"))
       defzip <- paste0(arcfiles[which(startsWith(arcfiles, "Deflatores"))], ".zip")
-      utils::download.file(url=paste0(ftpdoc, defzip), destfile=paste0(savedir, "/Deflatores.zip"), mode="wb")
-      utils::unzip(zipfile=paste0(savedir, "/Deflatores.zip"), exdir=savedir)
+      if (reload == FALSE & file.exists(paste0(savedir, "/Deflatores.zip"))) {
+        message("The reload argument was defined as FALSE and the file of deflator was already downloaded, so the download process will not execute again.")
+      }
+      else {
+        utils::download.file(url=paste0(ftpdoc, defzip), destfile=paste0(savedir, "/Deflatores.zip"), mode="wb")
+        utils::unzip(zipfile=paste0(savedir, "/Deflatores.zip"), exdir=savedir)
+        if (reload == FALSE) {
+          message("The definition of FALSE for the reload argument will be ignored, since the file of deflator was not downloaded yet.")
+        }
+      }
       defname <- dir(savedir, pattern=paste0("^Deflator_PNAD_COVID.*\\.xls$"), ignore.case=FALSE)
       deffile <- paste0(savedir, "/", defname)
       deffile <- rownames(file.info(deffile)[order(file.info(deffile)$mtime),])[length(deffile)]
@@ -122,6 +153,10 @@ get_covid <- function(year, month, vars = NULL,
     else {
       message("Sample design function is unavailable in package COVIDIBGE.")
     }
+  }
+  if (printpath == TRUE) {
+    message("Paths of files downloaded in this function at the save directory provided are:")
+    message(paste0(list.files(path=savedir, pattern="COVID", full.names=TRUE), collapse="\n"))
   }
   return(data_covid)
 }
