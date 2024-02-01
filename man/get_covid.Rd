@@ -12,6 +12,7 @@ get_covid(
   deflator = TRUE,
   design = TRUE,
   reload = TRUE,
+  curlopts = list(),
   savedir = tempdir()
 )
 }
@@ -28,7 +29,9 @@ get_covid(
 
 \item{design}{Logical value. If \code{TRUE}, will return an object of class \code{survey.design} or \code{svyrep.design}. It is strongly recommended to keep this parameter as \code{TRUE} for further analysis. If \code{FALSE}, only the microdata will be returned.}
 
-\item{reload}{Logical value. If \code{TRUE}, will re-download the files even if they already exist in the save directory. If \code{FALSE}, will be checked if the files already exist in the save directory and the download will not be performed repeatedly.}
+\item{reload}{Logical value. If \code{TRUE}, will re-download the files even if they already exist in the save directory. If \code{FALSE}, will be checked if the files already exist in the save directory and the download will not be performed repeatedly, be careful with coinciding names of microdata files.}
+
+\item{curlopts}{A named list object identifying the curl options for the handle when using functions from \code{RCurl} package.}
 
 \item{savedir}{Directory to save the downloaded data. Default is to use a temporary directory.}
 }
@@ -44,7 +47,8 @@ For more information, visit the survey official website <\url{https://www.ibge.g
 \examples{
 \donttest{
 covid.svy <- get_covid(year=2020, month=5, vars=c("C001","C002"),
-                       labels=TRUE, deflator=TRUE, design=TRUE, reload=TRUE, savedir=tempdir())
+                       labels=TRUE, deflator=TRUE, design=TRUE,
+                       reload=TRUE, curlopts=list(), savedir=tempdir())
 # Calculating proportion of people temporarily away from work
 if (!is.null(covid.svy)) survey::svymean(x=~C002, design=covid.svy, na.rm=TRUE)}
 }

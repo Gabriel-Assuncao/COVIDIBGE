@@ -15,7 +15,8 @@
 #' \donttest{
 #' # Downloading data
 #' covid.df2 <- get_covid(year=2020, month=5, vars=c("C001","C002"),
-#'                        labels=FALSE, deflator=FALSE, design=FALSE, reload=TRUE, savedir=tempdir())
+#'                        labels=FALSE, deflator=FALSE, design=FALSE,
+#'                        reload=TRUE, curlopts=list(), savedir=tempdir())
 #' dictionary.path2 <- covid_example(path="dictionaryexample.xls")
 #' covid.df2 <- covid_labeller(data_covid=covid.df2, dictionary.file=dictionary.path2)}
 #' @export
@@ -55,7 +56,7 @@ covid_labeller <- function(data_covid, dictionary.file) {
     }
   }
   else {
-    message("The microdata object is not of the tibble class or sample design was already defined for microdata, so labeling categorical variables is not possible.")
+    message("The microdata object is not of the tibble class or sample design was already defined for microdata, so labeling categorical variables is not possible.\n")
   }
   return(data_covid)
 }

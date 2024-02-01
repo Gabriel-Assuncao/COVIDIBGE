@@ -1,17 +1,19 @@
 Package: COVIDIBGE
 Type: Package
 Title: Downloading, Reading and Analyzing PNAD COVID19 Microdata
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: c(person("Gabriel", "Assuncao", email = "pacotesipd@ibge.gov.br",
                   role = c("aut", "cre")),
              person("Luna", "Hidalgo", email = "pacotesipd@ibge.gov.br",
                   role = c("aut")),
              person("Douglas", "Braga", email = "pacotesipd@ibge.gov.br",
+                  role = c("ctb")),
+             person("Viviane", "Quintaes", email = "pacotesipd@ibge.gov.br",
                   role = c("ctb")))
-Description: Provides tools for downloading, reading and analyzing the PNAD COVID19,
-	a household survey from Brazilian Institute of Geography and Statistics - IBGE.
-	The data must be downloaded from the official website <https://www.ibge.gov.br/>. 
-	Further analysis must be made using package 'survey'.
+Description: Provides tools for downloading, reading and analyzing the COVID19 National
+  Household Sample Survey - PNAD COVID19, a household survey from Brazilian Institute
+  of Geography and Statistics - IBGE. The data must be downloaded from the official
+  website <https://www.ibge.gov.br/>. Further analysis must be made using package 'survey'.
 Depends: R (>= 3.2.0)
 Imports: dplyr, httr, magrittr, projmgr, RCurl, readr, readxl, survey,
         tibble, timeDate, utils
@@ -22,9 +24,10 @@ RoxygenNote: 7.1.2
 NeedsCompilation: no
 Author: Gabriel Assuncao [aut, cre],
   Luna Hidalgo [aut],
-  Douglas Braga [ctb]
+  Douglas Braga [ctb],
+  Viviane Quintaes [ctb]
 Maintainer: Gabriel Assuncao <pacotesipd@ibge.gov.br>
 BugReports: https://github.com/Gabriel-Assuncao/COVIDIBGE/issues
-Packaged: 2023-11-18 21:29:29 UTC; gabriel.assuncao
+Packaged: 2024-02-01 13:34:54 UTC; gabriel.assuncao
 Repository: CRAN
-Date/Publication: 2023-11-18 23:20:07 UTC
+Date/Publication: 2024-02-01 15:30:05 UTC

@@ -1,7 +1,7 @@
 # COVIDIBGE
 ## Downloading, Reading and Analyzing PNAD COVID19 Microdata
 
-This R package provides tools for download, read, and analyze the PNAD COVID19 household survey from Brazilian Institute of Geography and Statistics.
+This R package provides tools for download, read, and analyze the COVID19 National Household Sample Survey - PNAD COVID19 from Brazilian Institute of Geography and Statistics - IBGE.
 
 ## Baixe, Leia e Analise os Microdados da PNAD COVID19
 

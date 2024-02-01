@@ -17,7 +17,8 @@
 #' \donttest{
 #' # Downloading data
 #' covid.df2 <- get_covid(year=2020, month=5, vars=c("C001","C002"),
-#'                        labels=TRUE, deflator=FALSE, design=FALSE, reload=TRUE, savedir=tempdir())
+#'                        labels=TRUE, deflator=FALSE, design=FALSE,
+#'                        reload=TRUE, curlopts=list(), savedir=tempdir())
 #' deflator.path2 <- covid_example(path="deflatorexample.xls")
 #' covid.df2 <- covid_deflator(data_covid=covid.df2, deflator.file=deflator.path2)}
 #' @export
@@ -59,11 +60,11 @@ covid_deflator <- function(data_covid, deflator.file) {
       data_covid <- tibble::as_tibble(data_covid)
     }
     else {
-      message("Merge variables required for adding deflator variables are missing.")
+      message("Merge variables required for adding deflator variables are missing.\n")
     }
   }
   else {
-    message("The microdata object is not of the tibble class or sample design was already defined for microdata, so adding deflator variables is not possible.")
+    message("The microdata object is not of the tibble class or sample design was already defined for microdata, so adding deflator variables is not possible.\n")
   }
   return(data_covid)
 }
